@@ -16,6 +16,7 @@ button{
     border-radius: 2px;
 }
 li{
+    list-style: none;
     background-color: #e1dede; 
     border-radius: 3px; 
     padding: 5px 10px; 

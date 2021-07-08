@@ -20,7 +20,7 @@ class ToDoList extends Component {
     addHandler = (e) => {
         e.preventDefault()
         const list = [...this.state.list]
-        list.push(<li key={Math.random()}>{this.state.toDo}</li>)
+        list.push(<li key={Math.random()}><input type="checkbox" /> {this.state.toDo}</li>)
         this.setState({
             list,
             toDo: ''
