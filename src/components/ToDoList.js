@@ -50,10 +50,14 @@ class ToDoList extends Component {
     }
 
     editTaskHandler(index, e) {
-        const newToDo = [...this.state.list]
-        newToDo[index].edit = !newToDo[index].edit
-        this.setState(newToDo)
         e.preventDefault()
+        if (this.state.list[index].value) {
+            const newToDo = [...this.state.list]
+            newToDo[index].edit = !newToDo[index].edit
+            this.setState(newToDo)
+        } else {
+            alert("Field cannot be empty")
+        }
     }
 
     render() {
@@ -65,6 +69,7 @@ class ToDoList extends Component {
                     <button className="addTaskButton" type="submit">Add to the list</button>
                 </form><br />
                 <div>
+                    {this.state.list.length === 0 ? <li>Task 1</li> : ""}
                     {this.state.list.map((item, index) => {
                         item.id = index
                         return (
@@ -75,7 +80,7 @@ class ToDoList extends Component {
                                 </div>
                                 <form style={{ width: item.edit ? "100%" : "" }}>
                                     <input className="toEditInput" value={item.value} onChange={this.editHandler.bind(this, index)} style={{ display: item.edit ? "inline-block" : "none" }} />
-                                    <button type="submit" className="toEdit" onClick={this.editTaskHandler.bind(this, index)}>{item.edit ? <img src="outline_update_black_24dp.png" /> : <img src="outline_edit_black_24dp.png" />}</button>
+                                    <button type="submit" className="toEdit" onClick={this.editTaskHandler.bind(this, index)}>{item.edit ? <img src="outline_update_black_24dp.png" alt="update" /> : <img src="outline_edit_black_24dp.png" alt="edit" />}</button>
                                 </form>
                             </li>
                         )
