@@ -1,7 +1,8 @@
-input{
+.addTaskInput{
     padding: 5px;
+    flex: 1;
 }
-input:focus{
+.addTaskInput:focus{
     outline: none;
     border-color: #f0c14b;
     box-shadow: 0 0 4px 0px #f0cd74;
@@ -14,8 +15,12 @@ button{
     background:#f0c14b;
     border: 0;
     border-radius: 2px;
+    cursor: pointer;
 }
 li{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     list-style: none;
     background-color: #e1dede; 
     border-radius: 3px; 
@@ -33,5 +38,19 @@ h2{
 .container{
     border: 2px solid grey;
     border-radius: 3px; 
-    padding: 20px
+    padding: 20px;
+    background-color: #fff;
+    width: 450px;
+}
+.toEditInput{
+    position: absolute;
+}
+.tasks{
+    overflow-wrap: anywhere;
+}
+.toEdit{
+    margin-left: 10px;
+}
+.toEditInput{
+    padding: 4px;
 }
