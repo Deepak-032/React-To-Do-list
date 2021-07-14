@@ -42,11 +42,6 @@ class ToDoList extends Component {
         this.setState(newToDo)
     }
 
-    editTaskHandler(index) {
-        const newToDo = [...this.state.list]
-        newToDo[index].edit = !newToDo[index].edit
-        this.setState(newToDo)
-    }
 
     editHandler(index, e) {
         const newToDo = [...this.state.list]
@@ -54,26 +49,34 @@ class ToDoList extends Component {
         this.setState(newToDo)
     }
 
+    editTaskHandler(index, e) {
+        const newToDo = [...this.state.list]
+        newToDo[index].edit = !newToDo[index].edit
+        this.setState(newToDo)
+        e.preventDefault()
+    }
 
     render() {
         return (
             <div className="container">
                 <h2>What needs to be done?</h2>
                 <form onSubmit={this.addHandler}>
-                    <input className="addTaskInput" value={this.state.toDo} onChange={this.changeHandler} placeholder="Add task..." autoFocus />&nbsp;
-                    <button type="submit">Add to the list</button>
+                    <input className="addTaskInput" value={this.state.toDo} onChange={this.changeHandler} placeholder="Add task..." autoFocus />
+                    <button className="addTaskButton" type="submit">Add to the list</button>
                 </form><br />
                 <div>
                     {this.state.list.map((item, index) => {
                         item.id = index
                         return (
                             <li key={index}>
-                                <div className="tasks" style={{ textDecoration: item.isCompleted ? "Line-through" : "" }}>
+                                <div className="tasks" style={{ textDecoration: item.isCompleted ? "Line-through" : "", display: item.edit ? "none" : "" }}>
                                     <input type="checkbox" onClick={() => this.markCompleteHandler(index)} />
-                                    &nbsp;<span style={{display: item.edit ? "none" : ""}}>{item.value}</span>
+                                    &nbsp;<span>{item.value}</span>
                                 </div>
-                                <button className="toEdit" onClick={() => this.editTaskHandler(index)}>{item.edit ? "Update" : "Edit"}</button>
-                                <input className="toEditInput" value={item.value} onChange={this.editHandler.bind(this, index)} style={{ display: item.edit ? "inline-block" : "none" }} />
+                                <form style={{ width: item.edit ? "100%" : "" }}>
+                                    <input className="toEditInput" value={item.value} onChange={this.editHandler.bind(this, index)} style={{ display: item.edit ? "inline-block" : "none" }} />
+                                    <button type="submit" className="toEdit" onClick={this.editTaskHandler.bind(this, index)}>{item.edit ? <img src="outline_update_black_24dp.png" /> : <img src="outline_edit_black_24dp.png" />}</button>
+                                </form>
                             </li>
                         )
                     })}
