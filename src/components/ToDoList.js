@@ -20,9 +20,6 @@ class ToDoList extends Component {
     addHandler = (e) => {
         e.preventDefault()
         const list = [...this.state.list]
-        if (this.state.toDo === '') {
-            return
-        }
         const toDo = {
             id: null,
             value: this.state.toDo,
@@ -66,7 +63,7 @@ class ToDoList extends Component {
                 <h2>What needs to be done?</h2>
                 <form onSubmit={this.addHandler}>
                     <input className="addTaskInput" value={this.state.toDo} onChange={this.changeHandler} placeholder="Add task..." autoFocus />
-                    <button className="addTaskButton" type="submit">Add to the list</button>
+                    <button disabled={!this.state.toDo} className="addTaskButton" type="submit">Add to the list</button>
                 </form><br />
                 <div>
                     {this.state.list.length === 0 ? <li>Task 1</li> : ""}
