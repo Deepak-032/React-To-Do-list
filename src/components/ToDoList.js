@@ -36,14 +36,14 @@ class ToDoList extends Component {
     markCompleteHandler(index) {
         const newToDo = [...this.state.list]
         newToDo[index].isCompleted = !newToDo[index].isCompleted
-        this.setState(newToDo)
+        this.setState({list: newToDo})
     }
 
 
-    editHandler(index, e) {
+    inputChangeHandler(index, e) {
         const newToDo = [...this.state.list]
         newToDo[index].value = e.target.value
-        this.setState(newToDo)
+        this.setState({list: newToDo})
     }
 
     editTaskHandler(index, e) {
@@ -51,10 +51,17 @@ class ToDoList extends Component {
         if (this.state.list[index].value) {
             const newToDo = [...this.state.list]
             newToDo[index].edit = !newToDo[index].edit
-            this.setState(newToDo)
+            this.setState({list: newToDo})
         } else {
             alert("Field cannot be empty")
         }
+    }
+
+    deleteTodoHandler(index, e) {
+        e.preventDefault()
+        const newToDo = [...this.state.list]
+        newToDo.splice(index, 1)
+        this.setState({list: newToDo})
     }
 
     render() {
@@ -76,8 +83,9 @@ class ToDoList extends Component {
                                     &nbsp;<span>{item.value}</span>
                                 </div>
                                 <form style={{ width: item.edit ? "100%" : "" }}>
-                                    <input className="toEditInput" value={item.value} onChange={this.editHandler.bind(this, index)} style={{ display: item.edit ? "inline-block" : "none" }} />
+                                    <input className="toEditInput" value={item.value} onChange={this.inputChangeHandler.bind(this, index)} style={{ display: item.edit ? "inline-block" : "none" }} />
                                     <button type="submit" className="toEdit" onClick={this.editTaskHandler.bind(this, index)}>{item.edit ? <img src="outline_update_black_24dp.png" alt="update" /> : <img src="outline_edit_black_24dp.png" alt="edit" />}</button>
+                                    <button className="delete" onClick={this.deleteTodoHandler.bind(this, index)}><img src="outline_delete_forever_black_24dp.png" alt="delete" /></button>
                                 </form>
                             </li>
                         )
